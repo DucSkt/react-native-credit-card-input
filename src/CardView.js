@@ -97,7 +97,7 @@ const s = StyleSheet.create({
   cvc: {
     fontSize: 12,
     position: "absolute",
-    top: 90,
+    top: 100,
     right: 30,
   },
 });
@@ -126,9 +126,9 @@ export default class CardView extends Component {
   static defaultProps = {
     name: "",
     placeholder: {
-      number: "•••• •••• •••• ••••",
+      number: "**** **** **** ****",
       name: "FULL NAME",
-      expiry: "••/••",
+      expiry: "MM/YY",
       cvc: "•••",
       mail: "youremail@gmail.com",
     },
@@ -211,7 +211,7 @@ export default class CardView extends Component {
               { !name ? placeholder.name : name.toUpperCase() }
             </Text>
             <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-              MONTH/YEAR
+              Expire
             </Text>
             <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
               { !expiry ? placeholder.expiry : expiry }
@@ -224,8 +224,9 @@ export default class CardView extends Component {
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
                            borderRadius={10}
                            source={imageBack}>
-
-            <View style={{position: "absolute", top: 40, height: 30, width: '100%', backgroundColor: 'black'}} />
+            <Image style={[s.icon]}
+                   source={Icons[brand]} />
+            <View style={{position: "absolute", top: 50, height: 30, width: '100%', backgroundColor: 'black'}} />
 
             <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
               { !cvc ? placeholder.cvc : cvc }
