@@ -38,8 +38,8 @@ export default function connectToState(CreditCardInput) {
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
         return postalCode.match(/^\d{6}$/) ? "valid" :
-               postalCode.length > 6 ? "invalid" :
-               "incomplete";
+          postalCode.length > 6 ? "invalid" :
+            "incomplete";
       },
     };
 
@@ -62,7 +62,6 @@ export default function connectToState(CreditCardInput) {
       const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
       const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
       const newState = { values: formattedValues, ...validation };
-
       this.setState(newState);
       this.props.onChange(newState);
     };
