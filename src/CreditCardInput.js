@@ -65,6 +65,7 @@ export default class CreditCardInput extends Component {
     allowScroll: PropTypes.bool,
     isFromPaypalDetail: PropTypes.bool,
     isFromCardDetail: PropTypes.bool,
+    isFromUpdateCard: PropTypes.bool,
     additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
@@ -91,6 +92,7 @@ export default class CreditCardInput extends Component {
     placeholderColor: "gray",
     isFromCardDetail: false,
     isFromPaypalDetail: false,
+    isFromUpdateCard: false,
     isFromPaypal: false,
     allowScroll: false,
     additionalInputsProps: {},
@@ -121,7 +123,7 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
+      additionalInputsProps, isFromUpdateCard
     } = this.props;
 
     return {
@@ -129,12 +131,11 @@ export default class CreditCardInput extends Component {
       labelStyle: [s.inputLabel, labelStyle],
       validColor, invalidColor, placeholderColor,
       ref: field, field,
-
       label: labels[field],
       placeholder: placeholders[field],
-      value: values[field],
+      value: (isFromUpdateCard && field === 'number') ? '' :values[field],
       status: status[field],
-
+      isFromUpdateCard,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
 
       additionalInputProps: additionalInputsProps[field],
@@ -146,7 +147,7 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons, isFromPaypal, bgPaypal, iconPaypal, isFromCardDetail, isFromPaypalDetail
+      cardScale, cardFontFamily, cardBrandIcons, isFromPaypal, bgPaypal, iconPaypal, isFromCardDetail, isFromUpdateCard, isFromPaypalDetail, placeholders
     } = this.props;
 
     if(isFromPaypalDetail) {
@@ -237,9 +238,11 @@ export default class CreditCardInput extends Component {
       <View style={s.container}>
         <CreditCard focused={focused}
                     brand={type}
+                    isFromUpdateCard={isFromUpdateCard}
                     scale={cardScale}
                     fontFamily={cardFontFamily}
                     imageFront={cardImageFront}
+                    placeholder={placeholders}
                     imageBack={cardImageFront}
                     customIcons={cardBrandIcons}
                     name={requiresName ? name : " "}
@@ -254,7 +257,7 @@ export default class CreditCardInput extends Component {
                     style={s.form}>
           <CCInput {...this._inputProps("number")}
                    keyboardType="numeric"
-                   containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+                   containerStyle={[ isFromUpdateCard ? {} : s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("expiry")}
                    keyboardType="numeric"
                    containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />

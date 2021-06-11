@@ -15,7 +15,9 @@ export const InjectedProps = {
   requiresName: PropTypes.bool,
   requiresCVC: PropTypes.bool,
   requiresPostalCode: PropTypes.bool,
+  isFromPaypalDetail: PropTypes.bool,
   isFromCardDetail: PropTypes.bool,
+  isFromUpdateCard: PropTypes.bool,
 };
 
 export default function connectToState(CreditCardInput) {
@@ -37,6 +39,8 @@ export default function connectToState(CreditCardInput) {
       requiresName: false,
       requiresCVC: true,
       isFromCardDetail: false,
+      isFromPaypalDetail: false,
+      isFromUpdateCard: false,
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
         return postalCode.match(/^\d{6}$/) ? "valid" :
@@ -54,12 +58,23 @@ export default function connectToState(CreditCardInput) {
       };
     }
 
-    componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      if(this.props.isFromCardDetail || this.props.isFromPaypalDetail) {
+    componentDidMount = () => setTimeout(async () => { // Hacks because componentDidMount happens before component is rendered
+      const {isFromCardDetail, isFromPaypalDetail, isFromUpdateCard } = this.props
+      if(isFromCardDetail || isFromPaypalDetail || isFromUpdateCard) {
         this.setState({
           values: this.props.values
         })
       }
+
+      if(isFromUpdateCard) {
+        const { number, expiry, name } = this.props.values
+        this.setValues({ ['name']: name });
+        this.setValues({ ['expiry']: expiry });
+        this.setValues({ ['number']: number });
+        this.props.autoFocus && this.focus("expiry");
+        return
+      }
+
       this.props.autoFocus && this.focus("number");
     });
 

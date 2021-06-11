@@ -36,6 +36,7 @@ export default class CCInput extends Component {
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
+    isFromUpdateCard: PropTypes.bool,
     additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
@@ -52,6 +53,7 @@ export default class CCInput extends Component {
     onBecomeValid: () => {},
     additionalInputProps: {},
     autoCapitalize: 'none',
+    isFromUpdateCard: false,
   };
 
   componentWillReceiveProps = newProps => {
@@ -70,7 +72,7 @@ export default class CCInput extends Component {
   render() {
     const { label, value, placeholder, status, keyboardType,
       containerStyle, inputStyle, labelStyle,
-      validColor, invalidColor, placeholderColor, autoCapitalize,
+      validColor, invalidColor, placeholderColor, autoCapitalize, isFromUpdateCard,
       additionalInputProps } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
@@ -89,6 +91,7 @@ export default class CCInput extends Component {
                          (invalidColor && status === "invalid") ? { color: invalidColor } :
                            {}),
                      ]}
+                     editable={(this.props.field === 'number' && isFromUpdateCard) ? false : true}
                      autoCapitalize={autoCapitalize}
                      underlineColorAndroid={"transparent"}
                      placeholderTextColor={placeholderColor}
