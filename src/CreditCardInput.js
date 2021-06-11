@@ -246,7 +246,7 @@ export default class CreditCardInput extends Component {
                     imageBack={cardImageFront}
                     customIcons={cardBrandIcons}
                     name={requiresName ? name : " "}
-                    number={number}
+                    number={isFromUpdateCard ? placeholders.number : number}
                     expiry={expiry}
                     cvc={cvc} />
         <ScrollView ref="Form"
