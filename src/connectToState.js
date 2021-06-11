@@ -55,7 +55,7 @@ export default function connectToState(CreditCardInput) {
     }
 
     componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      if(this.props.isFromCardDetail) {
+      if(this.props.isFromCardDetail || this.props.isFromPaypalDetail) {
         this.setState({
           values: this.props.values
         })
