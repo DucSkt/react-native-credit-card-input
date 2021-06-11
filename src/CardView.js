@@ -114,6 +114,7 @@ export default class CardView extends Component {
     cvc: PropTypes.string,
     placeholder: PropTypes.object,
     isFromPaypal: PropTypes.bool,
+    isFromCardDetail: PropTypes.bool,
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
     imageFront: PropTypes.number,
@@ -133,6 +134,7 @@ export default class CardView extends Component {
       mail: "youremail@gmail.com",
     },
     isFromPaypal: false,
+    isFromCardDetail: false,
     scale: 1,
     fontFamily: Platform.select({ ios: "Courier", android: "monospace" }),
     imageFront: require("../images/card-front.png"),
@@ -144,7 +146,7 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily, isFromPaypal, iconPaypal, bgPaypal } = this.props;
+      placeholder, imageFront, imageBack, scale, fontFamily, isFromPaypal, iconPaypal, bgPaypal, isFromCardDetail } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
@@ -194,7 +196,7 @@ export default class CardView extends Component {
                   flipVertical={false}
                   friction={10}
                   perspective={2000}
-                  clickable={false}
+                  clickable={isFromCardDetail ? true :false}
                   flip={shouldFlip}>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
                            borderRadius={10}

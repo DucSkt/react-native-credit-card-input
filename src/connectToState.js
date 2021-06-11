@@ -15,6 +15,7 @@ export const InjectedProps = {
   requiresName: PropTypes.bool,
   requiresCVC: PropTypes.bool,
   requiresPostalCode: PropTypes.bool,
+  isFromCardDetail: PropTypes.bool,
 };
 
 export default function connectToState(CreditCardInput) {
@@ -35,6 +36,7 @@ export default function connectToState(CreditCardInput) {
       onFocus: () => {},
       requiresName: false,
       requiresCVC: true,
+      isFromCardDetail: false,
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
         return postalCode.match(/^\d{6}$/) ? "valid" :
@@ -53,6 +55,11 @@ export default function connectToState(CreditCardInput) {
     }
 
     componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
+      if(this.props.isFromCardDetail) {
+        this.setState({
+          values: this.props.values
+        })
+      }
       this.props.autoFocus && this.focus("number");
     });
 

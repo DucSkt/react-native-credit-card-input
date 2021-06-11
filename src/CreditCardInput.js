@@ -63,7 +63,7 @@ export default class CreditCardInput extends Component {
     cardBrandIcons: PropTypes.object,
     isFromPaypal: PropTypes.bool,
     allowScroll: PropTypes.bool,
-
+    isFromCardDetail: PropTypes.bool,
     additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
@@ -88,6 +88,8 @@ export default class CreditCardInput extends Component {
     validColor: "",
     invalidColor: "red",
     placeholderColor: "gray",
+    isFromCardDetail: false,
+    isFromPaypal: false,
     allowScroll: false,
     additionalInputsProps: {},
   };
@@ -142,9 +144,28 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons, isFromPaypal, bgPaypal, iconPaypal
+      cardScale, cardFontFamily, cardBrandIcons, isFromPaypal, bgPaypal, iconPaypal, isFromCardDetail
     } = this.props;
 
+    if(isFromCardDetail) {
+      return (
+        <View style={s.container}>
+          <CreditCard focused={focused}
+                      brand={type}
+                      scale={cardScale}
+                      isFromCardDetail={isFromCardDetail}
+                      bgPaypal={bgPaypal}
+                      fontFamily={cardFontFamily}
+                      imageFront={cardImageFront}
+                      imageBack={cardImageFront}
+                      customIcons={cardBrandIcons}
+                      name={requiresName ? name : " "}
+                      number={number}
+                      expiry={expiry}
+                      cvc={cvc} />
+        </View>
+      )
+    }
     if(isFromPaypal) {
       return      (
         <View style={s.container}>
