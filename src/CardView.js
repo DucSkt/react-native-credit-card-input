@@ -26,7 +26,6 @@ const s = StyleSheet.create({
     right: 30,
     width: 60,
     height: 40,
-    resizeMode: "contain",
   },
   baseText: {
     color: "rgba(255, 255, 255, 0.8)",
