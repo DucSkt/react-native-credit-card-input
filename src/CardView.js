@@ -23,9 +23,17 @@ const s = StyleSheet.create({
   icon: {
     position: "absolute",
     top: 5,
-    right: 30,
+    right: 25,
     width: 60,
     height: 40,
+  },
+  iconPaypal: {
+    position: "absolute",
+    top: 5,
+    right: 25,
+    width: 60,
+    height: 40,
+    resizeMode: "contain",
   },
   baseText: {
     color: "rgba(255, 255, 255, 0.8)",
@@ -170,7 +178,7 @@ export default class CardView extends Component {
             <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
                              borderRadius={10}
                              source={bgPaypal}>
-              <Image style={[s.icon]}
+              <Image style={[s.iconPaypal]}
                      source={iconPaypal} />
 
               <Text style={[s.baseText, { fontFamily }, s.holderMailPaypal]}
