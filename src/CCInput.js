@@ -12,6 +12,8 @@ import {
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 });
 
