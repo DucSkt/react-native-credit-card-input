@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ViewPropTypes,
+  Platform
 } from "react-native";
 
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
-    paddingTop: 0,
+    paddingTop:  Platform.OS === 'ios' ? 0 : 3,
     paddingBottom: 0,
   },
 });

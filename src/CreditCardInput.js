@@ -29,7 +29,7 @@ const s = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    height: 45,
+    height: 40,
   },
 });
 
