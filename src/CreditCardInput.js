@@ -29,7 +29,7 @@ const s = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    height: 40,
+    height: 45,
   },
 });
 
@@ -249,6 +249,10 @@ export default class CreditCardInput extends Component {
                     number={isFromUpdateCard ? placeholders.number : number}
                     expiry={expiry}
                     cvc={cvc} />
+        { requiresName &&
+        <CCInput {...this._inputProps("name")}
+                 autoCapitalize={'words'}
+                 containerStyle={[  { width: Dimensions.get("window").width- 40, marginTop: 20 }]} /> }
         <ScrollView ref="Form"
                     horizontal
                     keyboardShouldPersistTaps="always"
@@ -270,10 +274,6 @@ export default class CreditCardInput extends Component {
                    keyboardType="numeric"
                    containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
         </ScrollView>
-        { requiresName &&
-        <CCInput {...this._inputProps("name")}
-                 autoCapitalize={'words'}
-                 containerStyle={[  { width: Dimensions.get("window").width- 40, marginTop: 20 }]} /> }
       </View>
     );
   }

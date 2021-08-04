@@ -7,13 +7,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   ViewPropTypes,
-  Platform
 } from "react-native";
 
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
-    paddingTop:  Platform.OS === 'ios' ? 0 : 3,
+    paddingTop: 0,
     paddingBottom: 0,
   },
 });
@@ -63,14 +62,21 @@ export default class CCInput extends Component {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty(field);
-    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
+    if (value !== "" && newValue === "" && field !== 'name') onBecomeEmpty(field);
+    if (status !== "valid" && newStatus === "valid" && field !== 'name') onBecomeValid(field);
   };
 
   focus = () => this.refs.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
   _onChange = value => this.props.onChange(this.props.field, value);
+
+  onSubmitHandler = () => {
+    const { field, onBecomeValid } = this.props;
+    if(field) {
+      onBecomeValid(field)
+    }
+  }
 
   render() {
     const { label, value, placeholder, status, keyboardType,
@@ -87,6 +93,8 @@ export default class CCInput extends Component {
                      keyboardType={keyboardType}
                      autoCapitalise="words"
                      autoCorrect={false}
+                     onSubmitEditing={(event) => this.onSubmitHandler()}
+                     returnKeyType="go"
                      style={[
                        s.baseInputStyle,
                        inputStyle,
