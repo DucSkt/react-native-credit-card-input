@@ -23,20 +23,19 @@ const s = StyleSheet.create({
     marginTop: 20,
   },
   inputContainer: {
-    marginLeft: 20,
+    marginLeft: 7,
   },
   inputLabel: {
     fontWeight: "bold",
   },
   input: {
-    height: 45,
   },
 });
 
-const CVC_INPUT_WIDTH = 70;
-const EXPIRY_INPUT_WIDTH = 90;
-const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
-const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET -20;
+const CVC_INPUT_WIDTH = 60;
+const EXPIRY_INPUT_WIDTH = 70;
+const CARD_NUMBER_INPUT_WIDTH_OFFSET = 55;
+const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CVC_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
 const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
 const PREVIOUS_FIELD_OFFSET = 40;
 const POSTAL_CODE_INPUT_WIDTH = 120;
@@ -261,7 +260,7 @@ export default class CreditCardInput extends Component {
                     style={s.form}>
           <CCInput {...this._inputProps("number")}
                    keyboardType="numeric"
-                   containerStyle={[ isFromUpdateCard ? {} : s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+                   containerStyle={[ isFromUpdateCard ? {} : s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH, marginLeft: 20 }]} />
           <CCInput {...this._inputProps("expiry")}
                    keyboardType="numeric"
                    containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
