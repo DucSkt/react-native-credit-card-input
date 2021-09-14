@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import CCFieldFormatter from "./CCFieldFormatter";
 import CCFieldValidator from "./CCFieldValidator";
 import compact from "lodash.compact";
+import {Platform} from "react-native";
 
 export const InjectedProps = {
   focused: PropTypes.string,
@@ -115,6 +116,15 @@ export default function connectToState(CreditCardInput) {
       // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
       // because we can't determine if the user has completed their name or not)
 
+      if( Platform.OS === 'ios' && field === "name") {
+        setTimeout(() => {
+          const displayedFields = this._displayedFields();
+          const fieldIndex = displayedFields.indexOf(field);
+          const nextField = displayedFields[fieldIndex + 1];
+          if (nextField) this.focus(nextField);
+        }, 50)
+        return
+      }
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const nextField = displayedFields[fieldIndex + 1];
